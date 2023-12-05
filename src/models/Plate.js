@@ -13,10 +13,14 @@ const plateSchema = mongoose.Schema({
     },
     price:{
         type: Number,
+        required: true,
+
     },
     disponibility:{
         type: Boolean,
-        default: true
+        default: true,
+        required: true,
+
     }
 });
 
