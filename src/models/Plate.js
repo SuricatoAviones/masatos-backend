@@ -16,6 +16,9 @@ const plateSchema = mongoose.Schema({
         required: true,
 
     },
+    img:{
+        type: String
+    },
     disponibility:{
         type: Boolean,
         default: true,

@@ -66,8 +66,9 @@ export const signin = async (req, res) => {
         const token = jwt.sign({ id: userFound._id }, process.env.SECRET, {
           expiresIn: 86400, // 24 hours
         });
-    
-        res.json({ token });
+        const usuario = userFound.roles
+        res.json({usuario, token});
+
       } catch (error) {
         console.log(error);
       }

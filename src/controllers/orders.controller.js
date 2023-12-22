@@ -20,7 +20,10 @@ export const createOrder = async (req,res) =>{
 }
 
 export const getOrders =  async (req,res) =>{
-    const orders = await Order.find();
+    const orders = await Order.find({})
+      .populate("user")
+      .populate("table")
+      .populate("plates")
     res.json(orders);
 }
 
@@ -28,7 +31,10 @@ export const getOrders =  async (req,res) =>{
 export const getOrderById = async (req,res) =>{
     const { orderId } = req.params;
 
-  const order = await Order.findById(orderId);
+  const order = await Order.findById(orderId)
+    .populate("user")
+    .populate("table")
+    .populate("plates")
   res.status(200).json(order);
 }
 
@@ -53,3 +59,17 @@ export const deleteOrderById = async (req,res) =>{
   // code 200 is ok too
   res.status(200).json();
 }
+
+
+
+export const getOrdersByUserId = async (req, res) => {
+  const userId = req.params.userId; // Obtenemos el ID del usuario de los parámetros de la solicitud
+  
+  try {
+    const orders = await Order.find({ user: userId }); // Buscamos todas las órdenes que pertenecen al usuario dado
+    
+    res.status(200).json(orders); // Respondemos con las órdenes encontradas
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

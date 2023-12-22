@@ -3,12 +3,15 @@ import * as ordersController from "../controllers/orders.controller";
 import { authJwt } from "../middlewares";
 const router = Router();
 
-// Rutas de Mesas
+// Rutas de ordenes
 router.post('/', ordersController.createOrder)
 router.get('/', ordersController.getOrders)
 router.get('/:orderId', ordersController.getOrderById)
 router.put('/:orderId', ordersController.updateOrderById)
 router.delete('/:orderId', ordersController.deleteOrderById)
 
+
+// Definir la ruta para obtener todas las órdenes de un usuario específico
+router.get('/users/:userId', ordersController.getOrdersByUserId);
 
 export default router;

@@ -1,3 +1,5 @@
+import User from '../models/User'
+
 export const createUser = async (req,res) =>{
     try {
         const { username, email, password, roles } = req.body;
@@ -28,6 +30,7 @@ export const createUser = async (req,res) =>{
         console.error(error);
       }  
 }
+
 export const getUsers = async (req, res) => {
     const users = await User.find();
     return res.json(users);
