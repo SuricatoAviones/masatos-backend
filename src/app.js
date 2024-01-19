@@ -9,7 +9,7 @@ import usersRoutes from "./routes/user.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import ordersRoutes from "./routes/orders.routes.js";
 import platesRoutes from "./routes/plates.route.js";
-
+import clientsRoutes from "./routes/client.route.js";
 const app = express ();
 app.set('pkg',pkg);
 
@@ -43,5 +43,6 @@ app.use("/api/users", usersRoutes);
 app.use('/api/tables',tableRoutes);
 app.use('/api/orders',ordersRoutes);
 app.use('/api/plates',platesRoutes);
+app.use('/api/clients',clientsRoutes);
 
 export default app;

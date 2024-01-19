@@ -2,12 +2,14 @@ import Order from '../models/Order'
 
 export const createOrder = async (req,res) =>{
     
-    const {user, table,plates,date} = req.body
+    const {user, table,plates,client,date,payment_method} = req.body
     try {
         const newOrder = new Order({
             user,
             table,
             plates,
+            client,
+            payment_method,
             date
         });
         const orderSaved = await newOrder.save()
@@ -24,6 +26,7 @@ export const getOrders =  async (req,res) =>{
       .populate("user")
       .populate("table")
       .populate("plates")
+      .populate("client")
     res.json(orders);
 }
 
@@ -35,12 +38,13 @@ export const getOrderById = async (req,res) =>{
     .populate("user")
     .populate("table")
     .populate("plates")
+    .populate("client")
   res.status(200).json(order);
 }
 
 
 export const updateOrderById = async (req,res) =>{
-    const updatedOrder = await Product.findByIdAndUpdate(
+    const updatedOrder = await Order.findByIdAndUpdate(
         req.params.orderId,
         req.body,
         {
@@ -67,6 +71,18 @@ export const getOrdersByUserId = async (req, res) => {
   
   try {
     const orders = await Order.find({ user: userId }); // Buscamos todas las órdenes que pertenecen al usuario dado
+    
+    res.status(200).json(orders); // Respondemos con las órdenes encontradas
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getOrdersByClientId = async (req,res) =>{
+  const clientId = req.params.clientId; // Obtenemos el ID del usuario de los parámetros de la solicitud
+  
+  try {
+    const orders = await Order.find({ user: clientId }); // Buscamos todas las órdenes que pertenecen al usuario dado
     
     res.status(200).json(orders); // Respondemos con las órdenes encontradas
   } catch (error) {

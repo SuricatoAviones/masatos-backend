@@ -13,10 +13,17 @@ const orderSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Plate",
     }],
+    client:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Client",
+    },
     date:{
         type: Date,
         required: true,
         default: Date.now(),
+    },
+    payment_method:{
+        type: String,
     }
 });
 
