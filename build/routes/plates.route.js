@@ -21,7 +21,7 @@ var router = (0, _express.Router)();
 // Configuración de Multer
 var storage = _multer["default"].diskStorage({
   destination: function destination(req, file, cb) {
-    cb(null, './../backend/src/uploads');
+    cb(null, __dirname + '/../uploads');
   },
   filename: function filename(req, file, cb) {
     cb(null, file.originalname);
