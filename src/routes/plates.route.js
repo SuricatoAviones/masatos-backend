@@ -9,7 +9,7 @@ const router = Router();
 // Configuración de Multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, './../backend/src/uploads')
+      cb(null, __dirname+'/../uploads')
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);
