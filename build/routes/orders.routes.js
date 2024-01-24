@@ -13,14 +13,14 @@ function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; 
 var router = (0, _express.Router)();
 
 // Rutas de ordenes
-router.post('/', ordersController.createOrder);
-router.get('/', ordersController.getOrders);
-router.get('/:orderId', ordersController.getOrderById);
-router.put('/:orderId', ordersController.updateOrderById);
-router["delete"]('/:orderId', ordersController.deleteOrderById);
+router.post('/', _middlewares.authJwt.verifyToken, ordersController.createOrder);
+router.get('/', _middlewares.authJwt.verifyToken, ordersController.getOrders);
+router.get('/:orderId', _middlewares.authJwt.verifyToken, ordersController.getOrderById);
+router.put('/:orderId', _middlewares.authJwt.verifyToken, ordersController.updateOrderById);
+router["delete"]('/:orderId', _middlewares.authJwt.verifyToken, ordersController.deleteOrderById);
 
 // Definir la ruta para obtener todas las órdenes de un usuario específico
-router.get('/users/:userId', ordersController.getOrdersByUserId);
+router.get('/users/:userId', _middlewares.authJwt.verifyToken, ordersController.getOrdersByUserId);
 // Definir la ruta para obtener todas las órdenes de un cliente en específico
-router.get('/clients/:clientId', ordersController.getOrdersByClientId);
+router.get('/clients/:clientId', _middlewares.authJwt.verifyToken, ordersController.getOrdersByClientId);
 var _default = exports["default"] = router;

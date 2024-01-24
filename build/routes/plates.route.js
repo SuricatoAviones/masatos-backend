@@ -9,6 +9,7 @@ var _express = require("express");
 var platesController = _interopRequireWildcard(require("../controllers/plates.controller"));
 var _middlewares = require("../middlewares");
 var _multer = _interopRequireDefault(require("multer"));
+var _backblazeB = _interopRequireDefault(require("backblaze-b2"));
 var _Plate = _interopRequireDefault(require("../models/Plate"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(e) { return e ? t : r; })(e); }
@@ -17,70 +18,88 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var router = (0, _express.Router)();
-
-// Configuración de Multer
-var storage = _multer["default"].diskStorage({
-  destination: function destination(req, file, cb) {
-    cb(null, __dirname + '/../uploads');
-  },
-  filename: function filename(req, file, cb) {
-    cb(null, file.originalname);
-  }
-});
-console.log(__dirname);
 var upload = (0, _multer["default"])({
-  storage: storage
+  storage: _multer["default"].memoryStorage()
 });
-// Rutas de Mesas
-router.post('/', upload.single('img'), /*#__PURE__*/function () {
+
+// Rutas de Platos
+router.post('/', upload.any(), /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, name, description, price, disponibility, img, newPlate, plateSaved;
+    var _req$body, name, description, price, disponibility, b2, authResponse, downloadUrl, _response, _response$data, authorizationToken, uploadUrl, params, fileInfo, url, newPlate, plateSaved;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _req$body = req.body, name = _req$body.name, description = _req$body.description, price = _req$body.price, disponibility = _req$body.disponibility;
-          img = req.file.path;
+          // Variables a Tomar
+          _req$body = req.body, name = _req$body.name, description = _req$body.description, price = _req$body.price, disponibility = _req$body.disponibility; // Config B2
+          b2 = new _backblazeB["default"]({
+            applicationKeyId: process.env.KEY_ID,
+            applicationKey: process.env.APP_KEY
+          });
+          _context.next = 5;
+          return b2.authorize();
+        case 5:
+          authResponse = _context.sent;
+          downloadUrl = authResponse.data.downloadUrl; // b2 Upload File
+          _context.next = 9;
+          return b2.getUploadUrl({
+            bucketId: process.env.BUCKET_ID
+          });
+        case 9:
+          _response = _context.sent;
+          console.log(_response.data, 'aqui x2');
+          _response$data = _response.data, authorizationToken = _response$data.authorizationToken, uploadUrl = _response$data.uploadUrl;
+          params = {
+            uploadUrl: uploadUrl,
+            uploadAuthToken: authorizationToken,
+            filename: "".concat(req.files[0].originalname),
+            data: req.files[0].buffer
+          };
+          _context.next = 15;
+          return b2.uploadFile(params);
+        case 15:
+          fileInfo = _context.sent;
+          url = "".concat(downloadUrl, "/file/").concat(process.env.BUCKET_NAME, "/").concat(fileInfo.data.fileName); // Crear datos
           newPlate = new _Plate["default"]({
             name: name,
             description: description,
             price: price,
             disponibility: disponibility,
-            img: img
-          });
+            img: url
+          }); // Por si tiene datos faltantes
           if (!(!name || !description || !price || !disponibility)) {
-            _context.next = 6;
+            _context.next = 20;
             break;
           }
           return _context.abrupt("return", res.status(400).send({
             error: 'Faltan datos.'
           }));
-        case 6:
-          _context.next = 8;
+        case 20:
+          _context.next = 22;
           return newPlate.save();
-        case 8:
+        case 22:
           plateSaved = _context.sent;
           res.status(201).json(plateSaved);
-          _context.next = 15;
+          _context.next = 29;
           break;
-        case 12:
-          _context.prev = 12;
+        case 26:
+          _context.prev = 26;
           _context.t0 = _context["catch"](0);
           res.status(400).json({
             message: _context.t0.message
           });
-        case 15:
+        case 29:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 12]]);
+    }, _callee, null, [[0, 26]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }());
-router.get('/', platesController.getPlates);
-router.get('/:plateId', platesController.getPlateById);
-router.put('/:plateId', platesController.updatePlateById);
-router["delete"]('/:plateId', platesController.deletePlateById);
+router.get('/', _middlewares.authJwt.verifyToken, platesController.getPlates);
+router.get('/:plateId', _middlewares.authJwt.verifyToken, platesController.getPlateById);
+router.put('/:plateId', _middlewares.authJwt.verifyToken, platesController.updatePlateById);
+router["delete"]('/:plateId', _middlewares.authJwt.verifyToken, platesController.deletePlateById);
 var _default = exports["default"] = router;

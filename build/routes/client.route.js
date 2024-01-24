@@ -13,9 +13,9 @@ function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; 
 var router = (0, _express.Router)();
 
 // Rutas de Mesas
-router.post('/', clientController.createClient);
-router.get('/', clientController.getClients);
-router.get('/:clientId', clientController.getClientById);
-router.put('/:clientId', clientController.updateClientById);
-router["delete"]('/:clientId', clientController.deleteClientById);
+router.post('/', _middlewares.authJwt.verifyToken, clientController.createClient);
+router.get('/', _middlewares.authJwt.verifyToken, clientController.getClients);
+router.get('/:clientId', _middlewares.authJwt.verifyToken, clientController.getClientById);
+router.put('/:clientId', _middlewares.authJwt.verifyToken, clientController.updateClientById);
+router["delete"]('/:clientId', _middlewares.authJwt.verifyToken, clientController.deleteClientById);
 var _default = exports["default"] = router;

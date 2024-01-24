@@ -4,11 +4,11 @@ import { authJwt } from "../middlewares";
 const router = Router();
 
 // Rutas de Mesas
-router.post('/', clientController.createClient)
-router.get('/', clientController.getClients)
-router.get('/:clientId', clientController.getClientById)
-router.put('/:clientId', clientController.updateClientById)
-router.delete('/:clientId', clientController.deleteClientById)
+router.post('/', authJwt.verifyToken,clientController.createClient)
+router.get('/', authJwt.verifyToken,clientController.getClients)
+router.get('/:clientId', authJwt.verifyToken,clientController.getClientById)
+router.put('/:clientId', authJwt.verifyToken,clientController.updateClientById)
+router.delete('/:clientId', authJwt.verifyToken,clientController.deleteClientById)
 
 
 export default router;

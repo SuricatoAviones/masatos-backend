@@ -1,46 +1,11 @@
 import Plate from '../models/Plate'
-/* import multer from 'multer';
-
-// Configuración de Multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, __dirname+'/../uploads')
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-const upload = multer({ storage })
 
 
 
 export const createPlate = async (req,res) =>{
-  try {
-    const {name,description,price,disponibility} = req.body;
-    const imagePath = req.file.path; // Obtener la ruta de la imagen subida
-    const newPlate = new Plate({
-      name,
-      description,
-      price,
-      disponibility,
-      img: imagePath          
-    });
-    
-    if (!name || !description || !price || !disponibility) {
-      return res.status(400).send({
-        error: 'Faltan datos.',
-      });
-    }
-
-    const plateSaved = await newPlate.save()
-    
-    res.status(201).json(plateSaved)
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
   
   
-} */
+}
 
 export const getPlates =  async (req,res) =>{
     const plates = await Plate.find();
