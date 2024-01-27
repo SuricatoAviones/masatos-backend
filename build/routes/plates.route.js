@@ -31,7 +31,7 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
         case 0:
           _context.prev = 0;
           // Variables a Tomar
-          _req$body = req.body, name = _req$body.name, description = _req$body.description, price = _req$body.price, disponibility = _req$body.disponibility; // Config B2
+          _req$body = req.body, name = _req$body.name, description = _req$body.description, price = _req$body.price, disponibility = _req$body.disponibility; // Config B2 
           b2 = new _backblazeB["default"]({
             applicationKeyId: process.env.KEY_ID,
             applicationKey: process.env.APP_KEY
@@ -47,7 +47,6 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
           });
         case 9:
           _response = _context.sent;
-          console.log(_response.data, 'aqui x2');
           _response$data = _response.data, authorizationToken = _response$data.authorizationToken, uploadUrl = _response$data.uploadUrl;
           params = {
             uploadUrl: uploadUrl,
@@ -55,9 +54,9 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
             filename: "".concat(req.files[0].originalname),
             data: req.files[0].buffer
           };
-          _context.next = 15;
+          _context.next = 14;
           return b2.uploadFile(params);
-        case 15:
+        case 14:
           fileInfo = _context.sent;
           url = "".concat(downloadUrl, "/file/").concat(process.env.BUCKET_NAME, "/").concat(fileInfo.data.fileName); // Crear datos
           newPlate = new _Plate["default"]({
@@ -68,36 +67,36 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
             img: url
           }); // Por si tiene datos faltantes
           if (!(!name || !description || !price || !disponibility)) {
-            _context.next = 20;
+            _context.next = 19;
             break;
           }
           return _context.abrupt("return", res.status(400).send({
             error: 'Faltan datos.'
           }));
-        case 20:
-          _context.next = 22;
+        case 19:
+          _context.next = 21;
           return newPlate.save();
-        case 22:
+        case 21:
           plateSaved = _context.sent;
           res.status(201).json(plateSaved);
-          _context.next = 29;
+          _context.next = 28;
           break;
-        case 26:
-          _context.prev = 26;
+        case 25:
+          _context.prev = 25;
           _context.t0 = _context["catch"](0);
           res.status(400).json({
             message: _context.t0.message
           });
-        case 29:
+        case 28:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 26]]);
+    }, _callee, null, [[0, 25]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}());
+}(), _middlewares.authJwt.verifyToken);
 router.get('/', _middlewares.authJwt.verifyToken, platesController.getPlates);
 router.get('/:plateId', _middlewares.authJwt.verifyToken, platesController.getPlateById);
 router.put('/:plateId', _middlewares.authJwt.verifyToken, platesController.updatePlateById);

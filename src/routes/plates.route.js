@@ -15,8 +15,7 @@ router.post('/',upload.any(), async(req,res)=>{
   try {
     // Variables a Tomar
     const {name,description,price,disponibility} = req.body;
-
-    // Config B2
+    // Config B2 
     const b2 = new B2({
       applicationKeyId: process.env.KEY_ID,
       applicationKey: process.env.APP_KEY,       
@@ -30,7 +29,6 @@ router.post('/',upload.any(), async(req,res)=>{
     // b2 Upload File
     const response = await b2.getUploadUrl({bucketId: process.env.BUCKET_ID});
 
-    console.log(response.data, 'aqui x2')
     const { authorizationToken , uploadUrl } = response.data;
     const params ={
       uploadUrl,
@@ -58,14 +56,14 @@ router.post('/',upload.any(), async(req,res)=>{
         error: 'Faltan datos.',
       });
     }
-
+   
     // Enviar datos al json y guardarlos
     const plateSaved = await newPlate.save()               
     res.status(201).json(plateSaved)
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-})
+}, authJwt.verifyToken)
 router.get('/', authJwt.verifyToken,platesController.getPlates)
 router.get('/:plateId', authJwt.verifyToken,platesController.getPlateById)
 router.put('/:plateId', authJwt.verifyToken,platesController.updatePlateById)
