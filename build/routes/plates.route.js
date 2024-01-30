@@ -31,21 +31,23 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
         case 0:
           _context.prev = 0;
           // Variables a Tomar
-          _req$body = req.body, name = _req$body.name, description = _req$body.description, price = _req$body.price, disponibility = _req$body.disponibility; // Config B2 
+          _req$body = req.body, name = _req$body.name, description = _req$body.description, price = _req$body.price, disponibility = _req$body.disponibility;
+          console.log(req.files);
+          // Config B2 
           b2 = new _backblazeB["default"]({
             applicationKeyId: process.env.KEY_ID,
             applicationKey: process.env.APP_KEY
           });
-          _context.next = 5;
+          _context.next = 6;
           return b2.authorize();
-        case 5:
+        case 6:
           authResponse = _context.sent;
           downloadUrl = authResponse.data.downloadUrl; // b2 Upload File
-          _context.next = 9;
+          _context.next = 10;
           return b2.getUploadUrl({
             bucketId: process.env.BUCKET_ID
           });
-        case 9:
+        case 10:
           _response = _context.sent;
           _response$data = _response.data, authorizationToken = _response$data.authorizationToken, uploadUrl = _response$data.uploadUrl;
           params = {
@@ -54,9 +56,9 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
             filename: "".concat(req.files[0].originalname),
             data: req.files[0].buffer
           };
-          _context.next = 14;
+          _context.next = 15;
           return b2.uploadFile(params);
-        case 14:
+        case 15:
           fileInfo = _context.sent;
           url = "".concat(downloadUrl, "/file/").concat(process.env.BUCKET_NAME, "/").concat(fileInfo.data.fileName); // Crear datos
           newPlate = new _Plate["default"]({
@@ -67,31 +69,31 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
             img: url
           }); // Por si tiene datos faltantes
           if (!(!name || !description || !price || !disponibility)) {
-            _context.next = 19;
+            _context.next = 20;
             break;
           }
           return _context.abrupt("return", res.status(400).send({
             error: 'Faltan datos.'
           }));
-        case 19:
-          _context.next = 21;
+        case 20:
+          _context.next = 22;
           return newPlate.save();
-        case 21:
+        case 22:
           plateSaved = _context.sent;
           res.status(201).json(plateSaved);
-          _context.next = 28;
+          _context.next = 29;
           break;
-        case 25:
-          _context.prev = 25;
+        case 26:
+          _context.prev = 26;
           _context.t0 = _context["catch"](0);
           res.status(400).json({
             message: _context.t0.message
           });
-        case 28:
+        case 29:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 25]]);
+    }, _callee, null, [[0, 26]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
