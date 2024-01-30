@@ -7,14 +7,15 @@ import Plate from '../models/Plate'
 
 
 const router = Router();
-const upload = multer({ storage:multer.memoryStorage() });
+const upload = multer({ storage :multer.memoryStorage() });
 
 // Rutas de Platos
-router.post('/',upload.any(), async(req,res)=>{
+router.post('/', upload.any() , async(req,res)=>{
 
   try {
     // Variables a Tomar
     const {name,description,price,disponibility} = req.body;
+    console.log(req.files)
     // Config B2 
     const b2 = new B2({
       applicationKeyId: process.env.KEY_ID,
@@ -36,6 +37,7 @@ router.post('/',upload.any(), async(req,res)=>{
       filename: `${req.files[0].originalname}`,
       data: req.files[0].buffer
     }
+    
 
     const fileInfo = await b2.uploadFile(params);
     const url = `${downloadUrl}/file/${process.env.BUCKET_NAME}/${fileInfo.data.fileName}`
@@ -63,6 +65,7 @@ router.post('/',upload.any(), async(req,res)=>{
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
+  
 }, authJwt.verifyToken)
 router.get('/', authJwt.verifyToken,platesController.getPlates)
 router.get('/:plateId', authJwt.verifyToken,platesController.getPlateById)
