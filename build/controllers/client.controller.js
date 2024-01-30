@@ -122,7 +122,7 @@ var deleteClientById = exports.deleteClientById = /*#__PURE__*/function () {
           return _Client["default"].findByIdAndDelete(clientId);
         case 3:
           // code 200 is ok too
-          res.status(200).json();
+          res.status(200).json(clientId);
         case 4:
         case "end":
           return _context5.stop();

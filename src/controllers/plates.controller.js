@@ -39,5 +39,5 @@ export const deletePlateById = async (req,res) =>{
   await Plate.findByIdAndDelete(plateId);
 
   // code 200 is ok too
-  res.status(200).json();
+  res.status(200).json(plateId);
 }

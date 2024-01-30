@@ -52,5 +52,5 @@ export const deleteTableById = async (req,res) =>{
   await Table.findByIdAndDelete(tableId);
 
   // code 200 is ok too
-  res.status(200).json();
+  res.status(200).json(tableId);
 }

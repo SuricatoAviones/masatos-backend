@@ -121,7 +121,7 @@ var deleteTableById = exports.deleteTableById = /*#__PURE__*/function () {
           return _Table["default"].findByIdAndDelete(tableId);
         case 3:
           // code 200 is ok too
-          res.status(200).json();
+          res.status(200).json(tableId);
         case 4:
         case "end":
           return _context5.stop();

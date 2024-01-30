@@ -61,7 +61,7 @@ export const deleteOrderById = async (req,res) =>{
   await Order.findByIdAndDelete(orderId);
 
   // code 200 is ok too
-  res.status(200).json();
+  res.status(200).json(orderId);
 }
 
 

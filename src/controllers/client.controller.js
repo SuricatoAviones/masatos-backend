@@ -51,7 +51,7 @@ export const deleteClientById = async (req,res) =>{
   await Client.findByIdAndDelete(clientId);
 
   // code 200 is ok too
-  res.status(200).json();
+  res.status(200).json(clientId);
 }
 
 
