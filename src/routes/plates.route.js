@@ -15,7 +15,7 @@ router.post('/', upload.any() , async(req,res)=>{
   try {
     // Variables a Tomar
     const {name,description,price,disponibility} = req.body;
-    console.log(req.files)
+    console.log(req)
     if(req.files.length === 0){
       return res.status(400).send({
         error: 'Falta la Imagen',

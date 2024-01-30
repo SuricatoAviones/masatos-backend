@@ -32,7 +32,7 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
           _context.prev = 0;
           // Variables a Tomar
           _req$body = req.body, name = _req$body.name, description = _req$body.description, price = _req$body.price, disponibility = _req$body.disponibility;
-          console.log(req.files);
+          console.log(req);
           if (!(req.files.length === 0)) {
             _context.next = 5;
             break;
