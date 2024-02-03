@@ -25,9 +25,10 @@ export const getOrders =  async (req,res) =>{
     const orders = await Order.find({})
       .populate("user")
       .populate("table")
-      .populate("plates")
+      .populate("plates._id")
       .populate("client")
     res.json(orders);
+
 }
 
 

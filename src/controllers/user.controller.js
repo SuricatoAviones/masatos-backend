@@ -32,8 +32,15 @@ export const createUser = async (req,res) =>{
 }
 
 export const getUsers = async (req, res) => {
-    const users = await User.find();
-    return res.json(users);
+    
+    if(!req.query){
+      const users = await User.find();
+      return res.json(users);
+    } else{
+      const data = req.query;
+      const users = await User.find(data);
+      res.json(users)
+    }
 };
   
   export const getUser = async (req, res) => {

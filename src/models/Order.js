@@ -10,9 +10,14 @@ const orderSchema = mongoose.Schema({
         ref: "Table",
     },
     plates:[{
+        _id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Plate",
-    }],
+        },
+        quantity:{
+            type: Number,
+        }
+        }],
     client:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Client",

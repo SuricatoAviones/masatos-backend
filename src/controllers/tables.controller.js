@@ -20,8 +20,15 @@ export const createTable = async (req,res) =>{
 }
 
 export const getTables =  async (req,res) =>{
-    const tables = await Table.find();
-    res.json(tables);
+    
+    if(!req.query){
+      const tables = await Table.find();
+      res.json(tables);
+    }else{
+      const data = req.query;
+      const tables = await Table.find(data);
+      res.json(tables);
+    }
 }
 
 

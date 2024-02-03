@@ -20,8 +20,15 @@ export const createClient = async (req,res) =>{
 }
 
 export const getClients =  async (req,res) =>{
-    const clients = await Client.find()
-    res.json(clients);
+    
+    if(!req.query){
+      const clients = await Client.find()
+      res.json(clients);
+    }else{
+      const data = req.query;
+      const clients = await Client.find(data);
+      res.json(clients);
+    }
 }
 
 

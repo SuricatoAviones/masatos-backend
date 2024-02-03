@@ -8,8 +8,17 @@ export const createPlate = async (req,res) =>{
 }
 
 export const getPlates =  async (req,res) =>{
-    const plates = await Plate.find();
-    res.json(plates);
+    
+    if(!req.query){
+      const plates = await Plate.find();
+      res.json(plates);
+    }
+    else{
+      const data = req.query;
+      const plates = await Plate.find(data);
+      res.json(plates);
+    }
+    
 }
 
 
