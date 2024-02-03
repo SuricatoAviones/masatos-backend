@@ -16,8 +16,13 @@ var orderSchema = _mongoose["default"].Schema({
     ref: "Table"
   },
   plates: [{
-    type: _mongoose["default"].Schema.Types.ObjectId,
-    ref: "Plate"
+    _id: {
+      type: _mongoose["default"].Schema.Types.ObjectId,
+      ref: "Plate"
+    },
+    quantity: {
+      type: Number
+    }
   }],
   client: {
     type: _mongoose["default"].Schema.Types.ObjectId,

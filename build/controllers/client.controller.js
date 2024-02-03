@@ -47,16 +47,29 @@ var createClient = exports.createClient = /*#__PURE__*/function () {
 }();
 var getClients = exports.getClients = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var clients;
+    var clients, data, _clients;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
+          if (req.query) {
+            _context2.next = 7;
+            break;
+          }
+          _context2.next = 3;
           return _Client["default"].find();
-        case 2:
+        case 3:
           clients = _context2.sent;
           res.json(clients);
-        case 4:
+          _context2.next = 12;
+          break;
+        case 7:
+          data = req.query;
+          _context2.next = 10;
+          return _Client["default"].find(data);
+        case 10:
+          _clients = _context2.sent;
+          res.json(_clients);
+        case 12:
         case "end":
           return _context2.stop();
       }

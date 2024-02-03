@@ -107,6 +107,11 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }(), _middlewares.authJwt.verifyToken);
+router.get(" ", function (req, res) {
+  var data = req.query;
+  console.log(data);
+  return res.status(200).json(data);
+});
 router.get('/', _middlewares.authJwt.verifyToken, platesController.getPlates);
 router.get('/:plateId', _middlewares.authJwt.verifyToken, platesController.getPlateById);
 router.put('/:plateId', _middlewares.authJwt.verifyToken, platesController.updatePlateById);

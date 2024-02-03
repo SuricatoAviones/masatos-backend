@@ -54,7 +54,7 @@ var getOrders = exports.getOrders = /*#__PURE__*/function () {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.next = 2;
-          return _Order["default"].find({}).populate("user").populate("table").populate("plates").populate("client");
+          return _Order["default"].find({}).populate("user").populate("table").populate("plates._id").populate("client");
         case 2:
           orders = _context2.sent;
           res.json(orders);

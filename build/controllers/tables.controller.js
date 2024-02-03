@@ -46,16 +46,29 @@ var createTable = exports.createTable = /*#__PURE__*/function () {
 }();
 var getTables = exports.getTables = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var tables;
+    var tables, data, _tables;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
+          if (req.query) {
+            _context2.next = 7;
+            break;
+          }
+          _context2.next = 3;
           return _Table["default"].find();
-        case 2:
+        case 3:
           tables = _context2.sent;
           res.json(tables);
-        case 4:
+          _context2.next = 12;
+          break;
+        case 7:
+          data = req.query;
+          _context2.next = 10;
+          return _Table["default"].find(data);
+        case 10:
+          _tables = _context2.sent;
+          res.json(_tables);
+        case 12:
         case "end":
           return _context2.stop();
       }

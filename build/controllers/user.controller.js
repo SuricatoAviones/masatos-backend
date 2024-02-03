@@ -65,16 +65,27 @@ var createUser = exports.createUser = /*#__PURE__*/function () {
 }();
 var getUsers = exports.getUsers = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var users;
+    var users, data, _users;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.next = 2;
+          if (req.query) {
+            _context2.next = 7;
+            break;
+          }
+          _context2.next = 3;
           return _User["default"].find();
-        case 2:
+        case 3:
           users = _context2.sent;
           return _context2.abrupt("return", res.json(users));
-        case 4:
+        case 7:
+          data = req.query;
+          _context2.next = 10;
+          return _User["default"].find(data);
+        case 10:
+          _users = _context2.sent;
+          res.json(_users);
+        case 12:
         case "end":
           return _context2.stop();
       }
