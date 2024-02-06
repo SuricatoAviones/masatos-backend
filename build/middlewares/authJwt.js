@@ -19,50 +19,50 @@ var verifyToken = exports.verifyToken = /*#__PURE__*/function () {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           if (!(req.headers.authorization && req.headers.authorization.startsWith("Bearer"))) {
-            _context.next = 19;
+            _context.next = 18;
             break;
           }
           _context.prev = 1;
           token = req.headers.authorization.split(" ")[1];
-          console.log(token);
+          // console.log(token);
           if (token) {
-            _context.next = 6;
+            _context.next = 5;
             break;
           }
           return _context.abrupt("return", res.status(403).json({
             message: "No token provided"
           }));
-        case 6:
+        case 5:
           decoded = _jsonwebtoken["default"].verify(token, process.env.SECRET);
           req.userId = decoded.id;
-          _context.next = 10;
+          _context.next = 9;
           return _User["default"].findById(req.userId, {
             password: 0
           });
-        case 10:
+        case 9:
           user = _context.sent;
           if (user) {
-            _context.next = 13;
+            _context.next = 12;
             break;
           }
           return _context.abrupt("return", res.status(404).json({
             message: "El usuario no existe"
           }));
-        case 13:
+        case 12:
           next();
-          _context.next = 19;
+          _context.next = 18;
           break;
-        case 16:
-          _context.prev = 16;
+        case 15:
+          _context.prev = 15;
           _context.t0 = _context["catch"](1);
           return _context.abrupt("return", res.status(401).json({
             message: 'No Autorizado'
           }));
-        case 19:
+        case 18:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 16]]);
+    }, _callee, null, [[1, 15]]);
   }));
   return function verifyToken(_x, _x2, _x3) {
     return _ref.apply(this, arguments);

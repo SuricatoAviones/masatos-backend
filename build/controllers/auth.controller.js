@@ -91,7 +91,7 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
 }();
 var signin = exports.signin = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var userFound, matchPassword, token, usuario;
+    var userFound, matchPassword, token, usuario, username, email;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -129,21 +129,25 @@ var signin = exports.signin = /*#__PURE__*/function () {
             expiresIn: 86400 // 24 hours
           });
           usuario = userFound.roles;
+          username = userFound.username;
+          email = userFound.email;
           res.json({
+            username: username,
+            email: email,
             usuario: usuario,
             token: token
           });
-          _context2.next = 19;
+          _context2.next = 21;
           break;
-        case 16:
-          _context2.prev = 16;
+        case 18:
+          _context2.prev = 18;
           _context2.t0 = _context2["catch"](0);
           console.log(_context2.t0);
-        case 19:
+        case 21:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 16]]);
+    }, _callee2, null, [[0, 18]]);
   }));
   return function signin(_x3, _x4) {
     return _ref2.apply(this, arguments);

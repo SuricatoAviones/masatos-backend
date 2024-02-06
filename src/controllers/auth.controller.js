@@ -67,7 +67,9 @@ export const signin = async (req, res) => {
           expiresIn: 86400, // 24 hours
         });
         const usuario = userFound.roles
-        res.json({usuario, token});
+        const username = userFound.username
+        const email = userFound.email
+        res.json({username,email,usuario, token});
 
       } catch (error) {
         console.log(error);
