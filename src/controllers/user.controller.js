@@ -43,7 +43,43 @@ export const getUsers = async (req, res) => {
     }
 };
   
-  export const getUser = async (req, res) => {
-    const user = await User.findById(req.params.userId);
-    return res.json(user);
+export const getUser = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return res.status(404).json({ msg: "No Encontrado" });
+  }
+
+
+  res.json(user);
+  
 };
+
+export const updateUserById = async (req,res) =>{
+  const { id } = req.params;
+  const user = await User.findByIdAndUpdate(id,req.body,{
+    new: true,
+  });
+
+  if (!user) {
+    return res.status(404).json({ msg: "No Encontrado" });
+  }
+
+  res.status(200).json(user);
+
+    
+}
+
+export const deleteUserById = async (req,res) =>{
+   
+    const {id} = req.params;
+    const user = await User.findById(id)
+
+    try {
+      await user.deleteOne();
+      res.json({ msg: "Usuario Eliminado" });
+    } catch (error) {
+      console.log(error);
+    }
+    
+}
