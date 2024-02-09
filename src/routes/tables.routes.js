@@ -11,4 +11,7 @@ router.put('/:tableId',authJwt.verifyToken, tablesController.updateTableById) //
 router.delete('/:tableId',[authJwt.verifyToken, authJwt.isAdmin],  tablesController.deleteTableById) // Admin
 
 
+
+
+
 export default router;

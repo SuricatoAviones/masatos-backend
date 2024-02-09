@@ -3,6 +3,10 @@ import * as ordersController from "../controllers/orders.controller";
 import { authJwt } from "../middlewares";
 const router = Router();
 
+
+// Filtrar Ordenes por fecha
+router.get('/filter/filter-date', authJwt.verifyToken, ordersController.filterOrderByDate);
+
 // Rutas de ordenes
 router.post('/', authJwt.verifyToken, ordersController.createOrder)
 router.get('/', authJwt.verifyToken, ordersController.getOrders)
@@ -15,5 +19,8 @@ router.delete('/:orderId', authJwt.verifyToken, ordersController.deleteOrderById
 router.get('/users/:userId', authJwt.verifyToken, ordersController.getOrdersByUserId);
 // Definir la ruta para obtener todas las órdenes de un cliente en específico
 router.get('/clients/:clientId', authJwt.verifyToken, ordersController.getOrdersByClientId);
+
+
+
 
 export default router;
