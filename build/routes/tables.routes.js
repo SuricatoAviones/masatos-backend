@@ -13,9 +13,9 @@ function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; 
 var router = (0, _express.Router)();
 
 // Rutas de Mesas
-router.post('/', [_middlewares.authJwt.verifyToken, _middlewares.authJwt.isAdmin], tablesController.createTable); // Admin
-router.get('/', _middlewares.authJwt.verifyToken, tablesController.getTables); // Moderador y Admin
-router.get('/:tableId', _middlewares.authJwt.verifyToken, tablesController.getTableById); // Moderador y Admin
-router.put('/:tableId', _middlewares.authJwt.verifyToken, tablesController.updateTableById); // Admin
-router["delete"]('/:tableId', [_middlewares.authJwt.verifyToken, _middlewares.authJwt.isAdmin], tablesController.deleteTableById); // Admin
+router.post('/', /* [authJwt.verifyToken, authJwt.isAdmin], */tablesController.createTable); // Admin
+router.get('/' /* ,authJwt.verifyToken */, tablesController.getTables); // Moderador y Admin
+router.get('/:tableId', /* authJwt.verifyToken, */tablesController.getTableById); // Moderador y Admin
+router.put('/:tableId', /* authJwt.verifyToken, */tablesController.updateTableById); // Admin
+router["delete"]('/:tableId', /* [authJwt.verifyToken, authJwt.isAdmin], */tablesController.deleteTableById); // Admin
 var _default = exports["default"] = router;
