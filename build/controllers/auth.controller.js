@@ -74,6 +74,7 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
             expiresIn: 86400 // 24 hours
           });
           return _context.abrupt("return", res.status(200).json({
+            id: id,
             username: username,
             email: email,
             roles: roles,
@@ -96,7 +97,7 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
 }();
 var signin = exports.signin = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var userFound, matchPassword, token, usuario, username, email, disponibility;
+    var userFound, matchPassword, token, _id, usuario, username, email, disponibility;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -133,28 +134,30 @@ var signin = exports.signin = /*#__PURE__*/function () {
           }, process.env.SECRET, {
             expiresIn: 86400 // 24 hours
           });
+          _id = userFound._id;
           usuario = userFound.roles;
           username = userFound.username;
           email = userFound.email;
           disponibility = userFound.disponibility;
           res.json({
+            id: _id,
             username: username,
             email: email,
             usuario: usuario,
             disponibility: disponibility,
             token: token
           });
-          _context2.next = 22;
+          _context2.next = 23;
           break;
-        case 19:
-          _context2.prev = 19;
+        case 20:
+          _context2.prev = 20;
           _context2.t0 = _context2["catch"](0);
           console.log(_context2.t0);
-        case 22:
+        case 23:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 19]]);
+    }, _callee2, null, [[0, 20]]);
   }));
   return function signin(_x3, _x4) {
     return _ref2.apply(this, arguments);

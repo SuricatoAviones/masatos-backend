@@ -38,7 +38,7 @@ export const signUp = async (req, res) => {
           expiresIn: 86400, // 24 hours
         });
     
-        return res.status(200).json({username,email, roles, disponibility,token });
+        return res.status(200).json({id, username,email, roles, disponibility,token });
       } catch (error) {
         return res.status(500).json(error.message);
       }
@@ -67,11 +67,12 @@ export const signin = async (req, res) => {
         const token = jwt.sign({ id: userFound._id }, process.env.SECRET, {
           expiresIn: 86400, // 24 hours
         });
+        const id = userFound._id
         const usuario = userFound.roles
         const username = userFound.username
         const email = userFound.email
         const disponibility = userFound.disponibility
-        res.json({username,email,usuario, disponibility ,token});
+        res.json({id, username,email,usuario, disponibility ,token});
 
       } catch (error) {
         console.log(error);
