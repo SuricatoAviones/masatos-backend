@@ -73,6 +73,9 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
             expiresIn: 86400 // 24 hours
           });
           return _context.abrupt("return", res.status(200).json({
+            username: username,
+            email: email,
+            roles: roles,
             token: token
           }));
         case 24:

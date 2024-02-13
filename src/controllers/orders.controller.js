@@ -12,9 +12,15 @@ export const createOrder = async (req,res) =>{
             payment_method,
             date
         });
-        const orderSaved = await newOrder.save()
+        const orderSaved = await newOrder.save().then(t =>
+          Order.findById(newOrder._id).populate("user")
+          .populate("table")
+          .populate("plates._id")
+          .populate("client")); ;
+        
     
-        res.status(201).json(orderSaved); 
+        res.status(201).json(orderSaved)
+          
     } catch (error) {
         console.log(error)
     }
@@ -64,14 +70,48 @@ export const getOrderById = async (req,res) =>{
 
 
 export const updateOrderById = async (req,res) =>{
+/*   const { id } = req.params;
+  const order = await Order.findById(id)
+    .populate("user")
+    .populate("table")
+    .populate("plates")
+    .populate("client");
+  if (!order) {
+    return res.status(404).json({ msg: "No Encontrado" });
+  }
+
+  // Actualizar Order
+  order.user = req.body.user || order.user;
+  order.table = req.body.table || order.table;
+  order.plates = req.body.plates || order.plates;
+  order.client = req.body.client || order.client;
+  order.date = req.body.date || order.date;
+  order.payment_method = req.body.payment_method || order.payment_method;
+  
+  try {
+    const updatedOrder = await order.save();
+    res.status(200).json(updatedOrder)    
+  } catch (error) {
+    console.log(error)
+  }
+   */
+
+  try {
     const updatedOrder = await Order.findByIdAndUpdate(
-        req.params.orderId,
-        req.body,
-        {
-          new: true,
-        }
-      );
-      res.status(200).json(updatedOrder);
+      req.params.orderId,
+      req.body,
+      {
+        new: true,
+      }
+    ).populate("user")
+    .populate("table")
+    .populate("plates._id")
+    .populate("client");
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+  
 }
 
 

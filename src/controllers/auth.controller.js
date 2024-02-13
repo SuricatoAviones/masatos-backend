@@ -37,7 +37,7 @@ export const signUp = async (req, res) => {
           expiresIn: 86400, // 24 hours
         });
     
-        return res.status(200).json({ token });
+        return res.status(200).json({username,email, roles ,token });
       } catch (error) {
         return res.status(500).json(error.message);
       }

@@ -27,21 +27,24 @@ var createOrder = exports.createOrder = /*#__PURE__*/function () {
             date: date
           });
           _context.next = 5;
-          return newOrder.save();
+          return newOrder.save().then(function (t) {
+            return _Order["default"].findById(newOrder._id).populate("user").populate("table").populate("plates._id").populate("client");
+          });
         case 5:
           orderSaved = _context.sent;
+          ;
           res.status(201).json(orderSaved);
-          _context.next = 12;
+          _context.next = 13;
           break;
-        case 9:
-          _context.prev = 9;
+        case 10:
+          _context.prev = 10;
           _context.t0 = _context["catch"](1);
           console.log(_context.t0);
-        case 12:
+        case 13:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 9]]);
+    }, _callee, null, [[1, 10]]);
   }));
   return function createOrder(_x, _x2) {
     return _ref.apply(this, arguments);
@@ -119,18 +122,27 @@ var updateOrderById = exports.updateOrderById = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          _context4.next = 2;
+          _context4.prev = 0;
+          _context4.next = 3;
           return _Order["default"].findByIdAndUpdate(req.params.orderId, req.body, {
             "new": true
-          });
-        case 2:
+          }).populate("user").populate("table").populate("plates._id").populate("client");
+        case 3:
           updatedOrder = _context4.sent;
           res.status(200).json(updatedOrder);
-        case 4:
+          _context4.next = 10;
+          break;
+        case 7:
+          _context4.prev = 7;
+          _context4.t0 = _context4["catch"](0);
+          res.status(500).json({
+            message: _context4.t0.message
+          });
+        case 10:
         case "end":
           return _context4.stop();
       }
-    }, _callee4);
+    }, _callee4, null, [[0, 7]]);
   }));
   return function updateOrderById(_x7, _x8) {
     return _ref4.apply(this, arguments);
