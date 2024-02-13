@@ -15,7 +15,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var signUp = exports.signUp = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var errores, _req$body, username, email, password, roles, newUser, foundRoles, role, savedUser, token;
+    var errores, _req$body, username, email, password, disponibility, roles, newUser, foundRoles, role, savedUser, token;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -30,10 +30,11 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
             errores: errores.array()
           }));
         case 4:
-          _req$body = req.body, username = _req$body.username, email = _req$body.email, password = _req$body.password, roles = _req$body.roles; // Creating a new User Object
+          _req$body = req.body, username = _req$body.username, email = _req$body.email, password = _req$body.password, disponibility = _req$body.disponibility, roles = _req$body.roles; // Creating a new User Object
           newUser = new _User["default"]({
             username: username,
             email: email,
+            disponibility: disponibility,
             password: password
           }); // checking for roles
           if (!roles) {
@@ -76,6 +77,7 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
             username: username,
             email: email,
             roles: roles,
+            disponibility: disponibility,
             token: token
           }));
         case 24:
@@ -94,7 +96,7 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
 }();
 var signin = exports.signin = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var userFound, matchPassword, token, usuario, username, email;
+    var userFound, matchPassword, token, usuario, username, email, disponibility;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -134,23 +136,25 @@ var signin = exports.signin = /*#__PURE__*/function () {
           usuario = userFound.roles;
           username = userFound.username;
           email = userFound.email;
+          disponibility = userFound.disponibility;
           res.json({
             username: username,
             email: email,
             usuario: usuario,
+            disponibility: disponibility,
             token: token
           });
-          _context2.next = 21;
+          _context2.next = 22;
           break;
-        case 18:
-          _context2.prev = 18;
+        case 19:
+          _context2.prev = 19;
           _context2.t0 = _context2["catch"](0);
           console.log(_context2.t0);
-        case 21:
+        case 22:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 18]]);
+    }, _callee2, null, [[0, 19]]);
   }));
   return function signin(_x3, _x4) {
     return _ref2.apply(this, arguments);

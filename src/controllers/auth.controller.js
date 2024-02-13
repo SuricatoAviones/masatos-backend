@@ -11,12 +11,13 @@ export const signUp = async (req, res) => {
       if(!errores.isEmpty()) {
         return res.status(400).json({errores: errores.array()});
       }
-      const { username, email, password, roles } = req.body;
+      const { username, email, password,disponibility ,roles } = req.body;
     
         // Creating a new User Object
         const newUser = new User({
           username,
           email,
+          disponibility,
           password,
         });
     
@@ -37,7 +38,7 @@ export const signUp = async (req, res) => {
           expiresIn: 86400, // 24 hours
         });
     
-        return res.status(200).json({username,email, roles ,token });
+        return res.status(200).json({username,email, roles, disponibility,token });
       } catch (error) {
         return res.status(500).json(error.message);
       }
@@ -69,7 +70,8 @@ export const signin = async (req, res) => {
         const usuario = userFound.roles
         const username = userFound.username
         const email = userFound.email
-        res.json({username,email,usuario, token});
+        const disponibility = userFound.disponibility
+        res.json({username,email,usuario, disponibility ,token});
 
       } catch (error) {
         console.log(error);

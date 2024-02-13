@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
+    disponibility: {
+      type: Boolean,
+      default: true,
+      required: true,
+      
+    },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,

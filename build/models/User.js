@@ -25,6 +25,11 @@ var userSchema = new _mongoose["default"].Schema({
     required: true,
     trim: true
   },
+  disponibility: {
+    type: Boolean,
+    "default": true,
+    required: true
+  },
   roles: [{
     type: _mongoose["default"].Schema.Types.ObjectId,
     ref: "Role"
