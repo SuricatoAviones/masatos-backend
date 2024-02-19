@@ -35,6 +35,9 @@ var orderSchema = _mongoose["default"].Schema({
   },
   payment_method: {
     type: String
+  },
+  status: {
+    type: String
   }
 });
 

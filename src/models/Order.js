@@ -29,7 +29,11 @@ const orderSchema = mongoose.Schema({
     },
     payment_method:{
         type: String,
+    },
+    status:{
+        type: String,
     }
+    
 });
 
 // Exportar Deporte y el Modelo a la DB
