@@ -71,16 +71,16 @@ router.post('/', upload.any() , async(req,res)=>{
     res.status(400).json({ message: error.message });
   }
   
-}, authJwt.verifyToken)
+},/*  authJwt.verifyToken */)
 router.get(" ", (req, res) => {
   const data = req.query;
   console.log(data)
   return res.status(200).json(data);
 });
-router.get('/', authJwt.verifyToken,platesController.getPlates)
-router.get('/:plateId', authJwt.verifyToken,platesController.getPlateById)
-router.put('/:plateId', authJwt.verifyToken,platesController.updatePlateById)
-router.delete('/:plateId', authJwt.verifyToken,platesController.deletePlateById)
+router.get('/',/*  authJwt.verifyToken,platesController.getPlates */)
+router.get('/:plateId', /* authJwt.verifyToken,platesController.getPlateById */)
+router.put('/:plateId', /* authJwt.verifyToken,platesController.updatePlateById */)
+router.delete('/:plateId', /* authJwt.verifyToken,platesController.deletePlateById */)
 
 
 

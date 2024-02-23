@@ -106,14 +106,14 @@ router.post('/', upload.any(), /*#__PURE__*/function () {
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}(), _middlewares.authJwt.verifyToken);
+}() /*  authJwt.verifyToken */);
 router.get(" ", function (req, res) {
   var data = req.query;
   console.log(data);
   return res.status(200).json(data);
 });
-router.get('/', _middlewares.authJwt.verifyToken, platesController.getPlates);
-router.get('/:plateId', _middlewares.authJwt.verifyToken, platesController.getPlateById);
-router.put('/:plateId', _middlewares.authJwt.verifyToken, platesController.updatePlateById);
-router["delete"]('/:plateId', _middlewares.authJwt.verifyToken, platesController.deletePlateById);
+router.get('/' /*  authJwt.verifyToken,platesController.getPlates */);
+router.get('/:plateId' /* authJwt.verifyToken,platesController.getPlateById */);
+router.put('/:plateId' /* authJwt.verifyToken,platesController.updatePlateById */);
+router["delete"]('/:plateId' /* authJwt.verifyToken,platesController.deletePlateById */);
 var _default = exports["default"] = router;

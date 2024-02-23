@@ -13,17 +13,17 @@ function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; 
 var router = (0, _express.Router)();
 
 // Filtrar Ordenes por fecha
-router.get('/filter/filter-date', _middlewares.authJwt.verifyToken, ordersController.filterOrderByDate);
+router.get('/filter/filter-date', /* authJwt.verifyToken, */ordersController.filterOrderByDate);
 
 // Rutas de ordenes
-router.post('/', _middlewares.authJwt.verifyToken, ordersController.createOrder);
-router.get('/', _middlewares.authJwt.verifyToken, ordersController.getOrders);
-router.get('/:orderId', _middlewares.authJwt.verifyToken, ordersController.getOrderById);
-router.put('/:orderId', _middlewares.authJwt.verifyToken, ordersController.updateOrderById);
-router["delete"]('/:orderId', _middlewares.authJwt.verifyToken, ordersController.deleteOrderById);
+router.post('/', a /* uthJwt.verifyToken, */, ordersController.createOrder);
+router.get('/', /* authJwt.verifyToken, */ordersController.getOrders);
+router.get('/:orderId', /* authJwt.verifyToken, */ordersController.getOrderById);
+router.put('/:orderId', /* authJwt.verifyToken, */ordersController.updateOrderById);
+router["delete"]('/:orderId', /* authJwt.verifyToken, */ordersController.deleteOrderById);
 
 // Definir la ruta para obtener todas las órdenes de un usuario específico
-router.get('/users/:userId', _middlewares.authJwt.verifyToken, ordersController.getOrdersByUserId);
+router.get('/users/:userId', /* authJwt.verifyToken,  */ordersController.getOrdersByUserId);
 // Definir la ruta para obtener todas las órdenes de un cliente en específico
-router.get('/clients/:clientId', _middlewares.authJwt.verifyToken, ordersController.getOrdersByClientId);
+router.get('/clients/:clientId', /* authJwt.verifyToken */ordersController.getOrdersByClientId);
 var _default = exports["default"] = router;
