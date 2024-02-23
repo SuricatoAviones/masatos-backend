@@ -16,7 +16,7 @@ var router = (0, _express.Router)();
 router.get('/filter/filter-date', /* authJwt.verifyToken, */ordersController.filterOrderByDate);
 
 // Rutas de ordenes
-router.post('/', a /* uthJwt.verifyToken, */, ordersController.createOrder);
+router.post('/', /* authJwt.verifyToken, */ordersController.createOrder);
 router.get('/', /* authJwt.verifyToken, */ordersController.getOrders);
 router.get('/:orderId', /* authJwt.verifyToken, */ordersController.getOrderById);
 router.put('/:orderId', /* authJwt.verifyToken, */ordersController.updateOrderById);
