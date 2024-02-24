@@ -112,8 +112,8 @@ router.get(" ", function (req, res) {
   console.log(data);
   return res.status(200).json(data);
 });
-router.get('/' /*  authJwt.verifyToken,platesController.getPlates */);
-router.get('/:plateId' /* authJwt.verifyToken,platesController.getPlateById */);
-router.put('/:plateId' /* authJwt.verifyToken,platesController.updatePlateById */);
-router["delete"]('/:plateId' /* authJwt.verifyToken,platesController.deletePlateById */);
+router.get('/', platesController.getPlates);
+router.get('/:plateId', platesController.getPlateById);
+router.put('/:plateId', platesController.updatePlateById);
+router["delete"]('/:plateId', platesController.deletePlateById);
 var _default = exports["default"] = router;
