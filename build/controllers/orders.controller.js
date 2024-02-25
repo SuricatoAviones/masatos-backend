@@ -16,7 +16,7 @@ var createOrder = exports.createOrder = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _req$body = req.body, user = _req$body.user, table = _req$body.table, plates = _req$body.plates, client = _req$body.client, date = _req$body.date, payment_method = _req$body.payment_method;
+          _req$body = req.body, user = _req$body.user, table = _req$body.table, plates = _req$body.plates, client = _req$body.client, date = _req$body.date, payment_method = _req$body.payment_method, status = _req$body.status;
           _context.prev = 1;
           newOrder = new _Order["default"]({
             user: user,
@@ -25,6 +25,7 @@ var createOrder = exports.createOrder = /*#__PURE__*/function () {
             client: client,
             payment_method: payment_method,
             date: date,
+            status:status,
             
           });
           _context.next = 5;
