@@ -10,7 +10,8 @@ export const createOrder = async (req,res) =>{
             plates,
             client,
             payment_method,
-            date
+            date,
+            status
         });
         const orderSaved = await newOrder.save().then(t =>
           Order.findById(newOrder._id).populate("user")
