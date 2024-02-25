@@ -2,7 +2,7 @@ import Order from '../models/Order'
 
 export const createOrder = async (req,res) =>{
     
-    const {user, table,plates,client,date,payment_method} = req.body
+    const {user, table,plates,client,date,payment_method,status} = req.body
     try {
         const newOrder = new Order({
             user,
