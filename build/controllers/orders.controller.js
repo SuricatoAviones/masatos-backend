@@ -24,7 +24,8 @@ var createOrder = exports.createOrder = /*#__PURE__*/function () {
             plates: plates,
             client: client,
             payment_method: payment_method,
-            date: date
+            date: date,
+            status:status
           });
           _context.next = 5;
           return newOrder.save().then(function (t) {
