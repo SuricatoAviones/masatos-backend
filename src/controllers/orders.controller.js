@@ -32,7 +32,7 @@ export const getOrders =  async (req,res) =>{
     
   try { 
     
-    if(req.query.user || req.query.table || req.query.plates || req.query.client){
+    if(req.query.user || req.query.table || req.query.plates || req.query.client || req.query.status){
       const data = req.query;
       const orders = await Order.find(data)
         .populate("user")
