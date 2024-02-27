@@ -70,12 +70,8 @@ export const getOrderById = async (req,res) =>{
 
 
 export const updateOrderById = async (req,res) =>{
-/*   const { id } = req.params;
-  const order = await Order.findById(id)
-    .populate("user")
-    .populate("table")
-    .populate("plates")
-    .populate("client");
+ /*  const { id } = req.params;
+  const order = await Order.findById({id})
   if (!order) {
     return res.status(404).json({ msg: "No Encontrado" });
   }
@@ -87,14 +83,14 @@ export const updateOrderById = async (req,res) =>{
   order.client = req.body.client || order.client;
   order.date = req.body.date || order.date;
   order.payment_method = req.body.payment_method || order.payment_method;
-  
+  order.status = req.body.status || order.status
   try {
     const updatedOrder = await order.save();
     res.status(200).json(updatedOrder)    
   } catch (error) {
-    console.log(error)
-  }
-   */
+    res.status(500).json({ message: error.message })
+  } */
+  
 
   try {
     const updatedOrder = await Order.findByIdAndUpdate(

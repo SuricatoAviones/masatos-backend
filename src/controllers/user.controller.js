@@ -77,7 +77,7 @@ export const deleteUserById = async (req,res) =>{
 
     try {
       await user.deleteOne();
-      res.json({ msg: "Usuario Eliminado" });
+      res.json({ "_id":id });
     } catch (error) {
       console.log(error);
     }

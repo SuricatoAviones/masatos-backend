@@ -173,7 +173,7 @@ var deleteUserById = exports.deleteUserById = /*#__PURE__*/function () {
           return user.deleteOne();
         case 7:
           res.json({
-            msg: "Usuario Eliminado"
+            "_id": id
           });
           _context5.next = 13;
           break;
