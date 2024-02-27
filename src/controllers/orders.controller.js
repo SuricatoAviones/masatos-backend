@@ -2,7 +2,7 @@ import Order from '../models/Order'
 
 export const createOrder = async (req,res) =>{
     
-    const {user, table,plates,client,date,payment_method} = req.body
+    const {user, table,plates,client,date,payment_method,status} = req.body
     try {
         const newOrder = new Order({
             user,
@@ -10,7 +10,8 @@ export const createOrder = async (req,res) =>{
             plates,
             client,
             payment_method,
-            date
+            date,
+            status
         });
         const orderSaved = await newOrder.save().then(t =>
           Order.findById(newOrder._id).populate("user")
@@ -31,7 +32,7 @@ export const getOrders =  async (req,res) =>{
     
   try { 
     
-    if(req.query.user || req.query.table || req.query.plates || req.query.client){
+    if(req.query.user || req.query.table || req.query.plates || req.query.client || req.query.status){
       const data = req.query;
       const orders = await Order.find(data)
         .populate("user")

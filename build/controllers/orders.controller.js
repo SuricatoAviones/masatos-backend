@@ -12,11 +12,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var createOrder = exports.createOrder = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, user, table, plates, client, date, payment_method, newOrder, orderSaved;
+    var _req$body, user, table, plates, client, date, payment_method, status, newOrder, orderSaved;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _req$body = req.body, user = _req$body.user, table = _req$body.table, plates = _req$body.plates, client = _req$body.client, date = _req$body.date, payment_method = _req$body.payment_method;
+          _req$body = req.body, user = _req$body.user, table = _req$body.table, plates = _req$body.plates, client = _req$body.client, date = _req$body.date, payment_method = _req$body.payment_method, status = _req$body.status;
           _context.prev = 1;
           newOrder = new _Order["default"]({
             user: user,
@@ -24,7 +24,8 @@ var createOrder = exports.createOrder = /*#__PURE__*/function () {
             plates: plates,
             client: client,
             payment_method: payment_method,
-            date: date
+            date: date,
+            status: status
           });
           _context.next = 5;
           return newOrder.save().then(function (t) {
@@ -57,7 +58,7 @@ var getOrders = exports.getOrders = /*#__PURE__*/function () {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          if (!(req.query.user || req.query.table || req.query.plates || req.query.client)) {
+          if (!(req.query.user || req.query.table || req.query.plates || req.query.client || req.query.status)) {
             _context2.next = 9;
             break;
           }
