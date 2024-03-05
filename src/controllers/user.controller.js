@@ -1,4 +1,5 @@
 import User from '../models/User'
+import bcrypt from "bcrypt";
 
 export const createUser = async (req,res) =>{
     try {
@@ -57,16 +58,22 @@ export const getUser = async (req, res) => {
 
 export const updateUserById = async (req,res) =>{
   const { id } = req.params;
-  const user = await User.findByIdAndUpdate(id,req.body,{
-    new: true,
-  });
+  const salt = await bcrypt.genSalt(10)
+  const newPassword = await bcrypt.hash(req.body.password, salt)
+  const user = await User.findByIdAndUpdate(req.params.id, {
+    $set : {
+        username: req.body.username,
+        email: req.body.email,
+        password: newPassword,
+        disponibility: req.body.disponibility
+    }
+})
 
   if (!user) {
     return res.status(404).json({ msg: "No Encontrado" });
   }
 
-  res.status(200).json(user);
-
+  res.status(200).json(user); 
     
 }
 

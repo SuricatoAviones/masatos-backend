@@ -50,3 +50,36 @@ export const deletePlateById = async (req,res) =>{
   // code 200 is ok too
   res.status(200).json(plateId);
 }
+
+
+export const filterPlateByDate = async (req,res) =>{
+  
+
+  try {
+    const startDate = req.query.startDate
+    const endDate = req.query.endDate
+
+
+      // Convertir las fechas a objetos Date
+    const startDateDate = new Date(startDate);
+    const endDateDate = new Date(endDate);
+
+    // Validar que las fechas sean válidas
+    if (!startDate || !endDate) {
+      return res.status(400).json({ error: 'Las fechas son obligatorias.' });
+    }
+
+    // Filtrar las ordenes en el rango de fecha
+    const plates = await Plate.find({
+      date: {
+        $gte: startDateDate,
+        $lte: endDateDate
+      },
+    })
+
+    // Enviar la respuesta
+    res.status(200).json(plates);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}

@@ -61,5 +61,37 @@ export const deleteClientById = async (req,res) =>{
   res.status(200).json(clientId);
 }
 
+export const filterClientByDate = async (req,res) =>{
+  
+
+  try {
+    const startDate = req.query.startDate
+    const endDate = req.query.endDate
+
+
+      // Convertir las fechas a objetos Date
+    const startDateDate = new Date(startDate);
+    const endDateDate = new Date(endDate);
+
+    // Validar que las fechas sean válidas
+    if (!startDate || !endDate) {
+      return res.status(400).json({ error: 'Las fechas son obligatorias.' });
+    }
+
+    // Filtrar las ordenes en el rango de fecha
+    const clients = await Client.find({
+      date: {
+        $gte: startDateDate,
+        $lte: endDateDate
+      },
+    })
+
+    // Enviar la respuesta
+    res.status(200).json(clients);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 
 
