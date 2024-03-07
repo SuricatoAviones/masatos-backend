@@ -102,25 +102,32 @@ var getUser = exports.getUser = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
+          _context3.prev = 0;
           id = req.params.id;
-          _context3.next = 3;
+          _context3.next = 4;
           return _User["default"].findById(id);
-        case 3:
+        case 4:
           user = _context3.sent;
           if (user) {
-            _context3.next = 6;
+            _context3.next = 7;
             break;
           }
           return _context3.abrupt("return", res.status(404).json({
             msg: "No Encontrado"
           }));
-        case 6:
-          res.json(user);
         case 7:
+          res.json(user);
+          _context3.next = 13;
+          break;
+        case 10:
+          _context3.prev = 10;
+          _context3.t0 = _context3["catch"](0);
+          console.log(_context3.t0);
+        case 13:
         case "end":
           return _context3.stop();
       }
-    }, _callee3);
+    }, _callee3, null, [[0, 10]]);
   }));
   return function getUser(_x5, _x6) {
     return _ref3.apply(this, arguments);
@@ -128,20 +135,42 @@ var getUser = exports.getUser = /*#__PURE__*/function () {
 }();
 var updateUserById = exports.updateUserById = /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
-    var id, salt, newPassword, user;
+    var updatedUser, salt, newPassword, user;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
-          id = req.params.id;
-          _context4.next = 3;
+          _context4.prev = 0;
+          if (req.body.password) {
+            _context4.next = 10;
+            break;
+          }
+          _context4.next = 4;
+          return _User["default"].findByIdAndUpdate(req.params.id, req.body, {
+            "new": true
+          });
+        case 4:
+          updatedUser = _context4.sent;
+          if (updatedUser) {
+            _context4.next = 7;
+            break;
+          }
+          return _context4.abrupt("return", res.status(404).json({
+            msg: "No Encontrado"
+          }));
+        case 7:
+          res.status(200).json(updatedUser);
+          _context4.next = 22;
+          break;
+        case 10:
+          _context4.next = 12;
           return _bcrypt["default"].genSalt(10);
-        case 3:
+        case 12:
           salt = _context4.sent;
-          _context4.next = 6;
+          _context4.next = 15;
           return _bcrypt["default"].hash(req.body.password, salt);
-        case 6:
+        case 15:
           newPassword = _context4.sent;
-          _context4.next = 9;
+          _context4.next = 18;
           return _User["default"].findByIdAndUpdate(req.params.id, {
             $set: {
               username: req.body.username,
@@ -150,22 +179,31 @@ var updateUserById = exports.updateUserById = /*#__PURE__*/function () {
               disponibility: req.body.disponibility
             }
           });
-        case 9:
+        case 18:
           user = _context4.sent;
           if (user) {
-            _context4.next = 12;
+            _context4.next = 21;
             break;
           }
           return _context4.abrupt("return", res.status(404).json({
             msg: "No Encontrado"
           }));
-        case 12:
+        case 21:
           res.status(200).json(user);
-        case 13:
+        case 22:
+          _context4.next = 27;
+          break;
+        case 24:
+          _context4.prev = 24;
+          _context4.t0 = _context4["catch"](0);
+          res.status(500).json({
+            message: _context4.t0.message
+          });
+        case 27:
         case "end":
           return _context4.stop();
       }
-    }, _callee4);
+    }, _callee4, null, [[0, 24]]);
   }));
   return function updateUserById(_x7, _x8) {
     return _ref4.apply(this, arguments);
@@ -187,7 +225,7 @@ var deleteUserById = exports.deleteUserById = /*#__PURE__*/function () {
           return user.deleteOne();
         case 7:
           res.json({
-            "_id": id
+            _id: id
           });
           _context5.next = 13;
           break;
