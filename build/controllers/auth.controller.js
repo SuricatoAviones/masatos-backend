@@ -73,10 +73,7 @@ var signUp = exports.signUp = /*#__PURE__*/function () {
           }, process.env.SECRET, {
             expiresIn: 86400 // 24 hours
           });
-          return _context.abrupt("return", res.status(200).json({
-            newUser: newUser,
-            token: token
-          }));
+          return _context.abrupt("return", res.status(200).json(newUser));
         case 24:
           _context.prev = 24;
           _context.t0 = _context["catch"](0);
